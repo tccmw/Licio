@@ -8,6 +8,11 @@ module.exports = {
   orientation: 'portrait',
   scheme: 'licio',
   userInterfaceStyle: 'light',
+  splash: {
+    image: './assets/licio-logo.png',
+    resizeMode: 'contain',
+    backgroundColor: '#F8FAFC',
+  },
   android: {
     package: 'com.licio.app',
     adaptiveIcon: { backgroundColor: '#2563EB' },
