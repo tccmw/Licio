@@ -17,7 +17,7 @@ export function HomeScreen({ navigation }: Props) {
   const session = useAuthStore((state) => state.session);
   const { data, isLoading, isError } = useQuery({ queryKey: ['academies', location.latitude, location.longitude], queryFn: () => api.nearbyAcademies(location.latitude, location.longitude) });
 
-  return <Screen><ScrollView contentContainerStyle={styles.content}>
+  return <Screen><ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
     <View style={styles.head}><View><Text style={styles.eyebrow}>{location.label}</Text><Text style={ui.title}>오늘도 안전하게,{`\n`}면허 준비 시작</Text></View><Pressable style={styles.profile} onPress={() => navigation.navigate(session ? 'Profile' : 'Auth')}><Text style={styles.profileText}>{session ? session.user.name.slice(0, 1) : '로그인'}</Text></Pressable></View>
     {data?.source === 'demo' && <Notice>데모 학원 정보를 표시 중입니다. Google Places 키를 연결하면 실제 검색 결과로 바뀝니다.</Notice>}
     <View style={styles.actionRow}>
@@ -34,7 +34,7 @@ export function HomeScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   content: { padding: spacing.md, gap: spacing.md },
   head: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: spacing.sm },
-  eyebrow: { color: colors.secondary, fontWeight: '800', marginBottom: spacing.xs },
+  eyebrow: { color: colors.secondary, fontWeight: '800', marginBottom: spacing.md },
   profile: { minWidth: 48, height: 40, paddingHorizontal: 10, borderRadius: 20, backgroundColor: '#DBEAFE', alignItems: 'center', justifyContent: 'center' },
   profileText: { color: colors.primary, fontWeight: '800', fontSize: 12 },
   actionRow: { flexDirection: 'row', gap: spacing.sm },

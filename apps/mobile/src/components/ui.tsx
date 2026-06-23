@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing } from '../constants/theme';
 
 export function Screen({ children, style }: PropsWithChildren<{ style?: ViewStyle }>) {
-  return <SafeAreaView style={[styles.screen, style]} edges={['bottom']}><View style={styles.content}>{children}</View></SafeAreaView>;
+  return <SafeAreaView style={[styles.screen, style]} edges={['top', 'bottom']}><View style={styles.content}>{children}</View></SafeAreaView>;
 }
 
 export function PrimaryButton({ title, onPress, disabled, secondary = false }: { title: string; onPress: () => void; disabled?: boolean; secondary?: boolean }) {
