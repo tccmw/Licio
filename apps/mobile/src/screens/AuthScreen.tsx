@@ -31,13 +31,13 @@ export function AuthScreen({ navigation }: Props) {
           const accessToken = googleResponse.authentication?.accessToken;
           if (!accessToken) throw new Error('Google access token을 받지 못했습니다.');
           await setSession(await api.signIn('GOOGLE', accessToken, googleResponse.params.id_token));
-          navigation.goBack();
+          navigation.replace('Profile');
         }
         if (kakaoResponse?.type === 'success') {
           const accessToken = kakaoResponse.params.access_token;
           if (!accessToken) throw new Error('Kakao access token을 받지 못했습니다.');
           await setSession(await api.signIn('KAKAO', accessToken));
-          navigation.goBack();
+          navigation.replace('Profile');
         }
       } catch (reason) { setError(reason instanceof Error ? reason.message : '로그인에 실패했습니다.'); }
     };
