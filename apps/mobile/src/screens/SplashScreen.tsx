@@ -54,7 +54,7 @@ export function SplashScreen({ navigation }: Props) {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => void requestDeviceLocation(), 600);
+    const timer = setTimeout(() => void requestDeviceLocation(), 900);
     return () => clearTimeout(timer);
   }, []);
 
@@ -73,7 +73,7 @@ export function SplashScreen({ navigation }: Props) {
     <View style={styles.brand}>
       <Image source={require('../../assets/licio-logo.png')} style={styles.logo} accessibilityLabel="Licio 로고" />
       <Text style={styles.wordmark}>Licio</Text>
-      {permissionState === 'requesting' && <Text style={styles.loadingText}>주변 운전학원을 찾고 있어요</Text>}
+      {permissionState === 'requesting' && <Text style={styles.loadingText}>운전 면허를 한눈에</Text>}
     </View>
 
     {permissionState !== 'requesting' && <View style={styles.fallbackPanel}>
