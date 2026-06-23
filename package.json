@@ -1,0 +1,22 @@
+{
+  "name": "licio",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run start:dev --workspace=@licio/api",
+    "dev:mobile": "npm run start --workspace=@licio/mobile",
+    "start:expo-go": "npm run start:expo-go --workspace=@licio/mobile",
+    "build": "npm run build --workspace=@licio/api && npm run build --workspace=@licio/mobile",
+    "test": "npm run test --workspace=@licio/api && npm run test --workspace=@licio/mobile",
+    "db:generate": "npm run prisma:generate --workspace=@licio/api",
+    "db:migrate": "npm run prisma:migrate --workspace=@licio/api",
+    "db:seed": "npm run prisma:seed --workspace=@licio/api",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
