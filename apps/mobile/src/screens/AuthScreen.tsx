@@ -34,11 +34,8 @@ type SocialLoginButtonProps = {
 function SocialLoginButton({ title, kind, disabled, onPress }: SocialLoginButtonProps) {
   const isKakao = kind === 'kakao';
   if (isKakao) {
-    return <Pressable accessibilityRole="button" accessibilityLabel={title} disabled={disabled} onPress={onPress} style={[styles.kakaoButton, disabled && styles.disabledButton]}>
-      <View style={styles.kakaoSymbol}>
-        <View style={styles.kakaoBubble}><View style={styles.kakaoBubbleTail} /></View>
-      </View>
-      <Text style={styles.kakaoLabel}>카카오 로그인</Text>
+    return <Pressable accessibilityRole="button" accessibilityLabel={title} disabled={disabled} onPress={onPress} style={[styles.kakaoImageButton, disabled && styles.disabledButton]}>
+      <Image source={require('../../assets/kakao_login_medium_narrow.png')} resizeMode="contain" style={styles.kakaoImage} />
     </Pressable>;
   }
 
@@ -142,11 +139,8 @@ const styles = StyleSheet.create({
   brandTagline: { color: colors.muted, fontSize: 14, fontWeight: '600', marginTop: spacing.xs },
   loginSection: { marginTop: 128 },
   buttons: { gap: 10 },
-  kakaoButton: { alignItems: 'center', backgroundColor: '#FEE500', borderRadius: 12, height: 52, justifyContent: 'center', overflow: 'hidden', position: 'relative', width: '100%' },
-  kakaoSymbol: { height: 24, justifyContent: 'center', left: spacing.md, position: 'absolute', width: 24 },
-  kakaoBubble: { backgroundColor: 'rgba(0, 0, 0, 0.85)', borderRadius: 9, height: 16, width: 19 },
-  kakaoBubbleTail: { backgroundColor: 'rgba(0, 0, 0, 0.85)', bottom: -2, height: 7, left: 3, position: 'absolute', transform: [{ rotate: '30deg' }], width: 6 },
-  kakaoLabel: { color: 'rgba(0, 0, 0, 0.85)', fontSize: 16, fontWeight: '700' },
+  kakaoImageButton: { alignSelf: 'center', height: 45, overflow: 'hidden', width: 183 },
+  kakaoImage: { height: 45, width: 183 },
   googleButton: { alignItems: 'center', backgroundColor: '#FFFFFF', borderColor: '#747775', borderRadius: 12, borderWidth: 1, flexDirection: 'row', height: 52, overflow: 'hidden', paddingLeft: 12, paddingRight: 12, width: '100%' },
   googleLogo: { height: 18, marginRight: 10, width: 18 },
   googleLabel: { color: '#1F1F1F', fontFamily: 'Roboto', fontSize: 14, fontWeight: '500', lineHeight: 20 },
