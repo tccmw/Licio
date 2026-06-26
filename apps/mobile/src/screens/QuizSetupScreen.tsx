@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -6,14 +5,13 @@ import { Notice, PrimaryButton, Screen, ui } from '../components/ui';
 import { colors, spacing } from '../constants/theme';
 import { api } from '../lib/api';
 import { RootStackParamList } from '../navigation/RootNavigator';
+import { useQuizPreferenceStore } from '../store/quiz-preference.store';
 import { useQuizStore } from '../store/quiz.store';
-import { LicenseType, QuizMode } from '../types/domain';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'QuizSetup'>;
 
 export function QuizSetupScreen({ navigation }: Props) {
-  const [licenseType, setLicenseType] = useState<LicenseType>('SECOND_NORMAL');
-  const [mode, setMode] = useState<QuizMode>('QUICK');
+  const { licenseType, mode, setLicenseType, setMode } = useQuizPreferenceStore();
   const start = useQuizStore((state) => state.start);
   const mutation = useMutation({
     mutationFn: () => api.questions(licenseType, mode),
