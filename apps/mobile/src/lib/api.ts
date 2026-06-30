@@ -1,5 +1,11 @@
 import { Academy, ExamSchedule, Favorite, LicenseType, QuizMode, QuizQuestion, QuizResult, Session, UserOverview } from '../types/domain';
 
+export type SocialSignInRequest = {
+  provider: 'GOOGLE' | 'KAKAO' | 'APPLE';
+  accessToken?: string;
+  idToken?: string;
+};
+
 const baseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.replace(/\/$/, '');
 
 type NearbyResponse = { academies: Academy[]; source: 'google' | 'demo'; searchedAt: string; locationStored: false };
@@ -86,8 +92,8 @@ export const api = {
     return request<QuizResult>('/quiz-attempts', { method: 'POST', body: JSON.stringify({ licenseType, mode, durationSec, answers }) }, session);
   },
 
-  signIn(provider: 'GOOGLE' | 'KAKAO', accessToken: string, idToken?: string) {
-    return request<Session>('/auth/social', { method: 'POST', body: JSON.stringify({ provider, accessToken, idToken }) });
+  signIn(payload: SocialSignInRequest) {
+    return request<Session>('/auth/social', { method: 'POST', body: JSON.stringify(payload) });
   },
 
   me(session: Session) {

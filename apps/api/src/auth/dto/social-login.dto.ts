@@ -5,12 +5,14 @@ export class SocialLoginDto {
   @IsEnum(SocialProvider)
   provider!: SocialProvider;
 
+  @IsOptional()
   @IsString()
-  accessToken!: string;
+  accessToken?: string;
 
   @IsOptional()
   @IsString()
   idToken?: string;
+
 }
 
 export class RefreshTokenDto {

@@ -10,6 +10,7 @@ datasource db {
 enum SocialProvider {
   GOOGLE
   KAKAO
+  APPLE
 }
 
 enum LicenseType {
