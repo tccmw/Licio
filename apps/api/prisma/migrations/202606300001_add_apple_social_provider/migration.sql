@@ -1,0 +1,1 @@
+ALTER TYPE "SocialProvider" ADD VALUE 'APPLE';

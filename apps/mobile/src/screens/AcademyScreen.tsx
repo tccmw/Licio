@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Notice, Screen, ui } from '../components/ui';
 import { colors, spacing } from '../constants/theme';
@@ -22,10 +22,16 @@ export function AcademyScreen() {
     },
     onSuccess: () => void queryClient.invalidateQueries({ queryKey: ['favorites'] }),
   });
-  const openDirections = (latitude: number, longitude: number) => void Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`);
+  const openDirections = (latitude: number, longitude: number) => {
+    const url = Platform.select({
+      ios: `https://maps.apple.com/?daddr=${latitude},${longitude}&dirflg=d`,
+      default: `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`,
+    });
+    void Linking.openURL(url);
+  };
 
   return <Screen><View style={styles.mapWrap}>
-    <MapView provider={PROVIDER_GOOGLE} style={styles.map} initialRegion={{ latitude: location.latitude, longitude: location.longitude, latitudeDelta: 0.04, longitudeDelta: 0.04 }} showsUserLocation={location.isDeviceLocation}>
+    <MapView provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined} style={styles.map} initialRegion={{ latitude: location.latitude, longitude: location.longitude, latitudeDelta: 0.04, longitudeDelta: 0.04 }} showsUserLocation={location.isDeviceLocation}>
       <Marker coordinate={{ latitude: location.latitude, longitude: location.longitude }} title={location.label} pinColor={colors.primary} />
       {data?.academies.map((academy) => <Marker key={academy.id} coordinate={{ latitude: academy.latitude, longitude: academy.longitude }} title={academy.name} description={academy.address} pinColor={colors.accent} />)}
     </MapView>
